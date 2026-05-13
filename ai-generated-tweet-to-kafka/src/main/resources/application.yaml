@@ -3,7 +3,7 @@ spring:
     name: ai-generated-tweet-to-kafka
   ai:
     openai:
-      api-key: ${DEEPSEEK_AI_KEY:sk-3f1fae00542a484382462adb41169a38}
+      api-key: ${DEEPSEEK_AI_KEY:}
 #      api-key: ${OPEN_AI_KEY:}
       base-url: "https://api.deepseek.com"
 #      base-url: "https://api.openai.com"
