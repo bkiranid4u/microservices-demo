@@ -1,0 +1,14 @@
+2026-05-09T08:21:25.615+05:30 [main] INFO  c.k.t.AIGeneratedTweetToKafkaConfigDataApplicationTests [ai-generated-tweet-to-kafka] - Starting AIGeneratedTweetToKafkaConfigDataApplicationTests using Java 25.0.3 with PID 5141 (started by kiran in /Users/kiran/devspace/microservices-demo/ai-generated-tweet-to-kafka)
+2026-05-09T08:21:25.615+05:30 [main] INFO  c.k.t.AIGeneratedTweetToKafkaConfigDataApplicationTests [ai-generated-tweet-to-kafka] - No active profile set, falling back to 1 default profile: "default"
+2026-05-09T08:21:26.217+05:30 [main] INFO  c.k.t.AIGeneratedTweetToKafkaConfigDataApplicationTests [ai-generated-tweet-to-kafka] - Started AIGeneratedTweetToKafkaConfigDataApplicationTests in 1.111 seconds (process running for 5.301)
+2026-05-09T08:21:26.220+05:30 [main] INFO  c.k.t.AIGeneratedTweetToKafkaApplication [ai-generated-tweet-to-kafka] - Application started...
+2026-05-09T08:21:26.220+05:30 [main] INFO  c.k.t.AIGeneratedTweetToKafkaApplication [ai-generated-tweet-to-kafka] - Stream initialized...
+2026-05-09T08:21:26.221+05:30 [main] INFO  c.k.t.AIGeneratedTweetToKafkaApplication [ai-generated-tweet-to-kafka] - Keyword: [Java, Microservices, Spring, kafka, ElasticSearch]
+2026-05-09T08:21:26.221+05:30 [scheduling-1] INFO  c.k.tweets.runner.AIStreamRunner [ai-generated-tweet-to-kafka] - Generated tweet: Open AI Generated Tweet
+2026-05-09T08:26:58.475+05:30 [main] INFO  c.k.t.AIGeneratedTweetToKafkaConfigDataApplicationTests [ai-generated-tweet-to-kafka] - Starting AIGeneratedTweetToKafkaConfigDataApplicationTests using Java 25.0.3 with PID 5177 (started by kiran in /Users/kiran/devspace/microservices-demo/ai-generated-tweet-to-kafka)
+2026-05-09T08:26:58.476+05:30 [main] INFO  c.k.t.AIGeneratedTweetToKafkaConfigDataApplicationTests [ai-generated-tweet-to-kafka] - No active profile set, falling back to 1 default profile: "default"
+2026-05-09T08:26:58.877+05:30 [main] INFO  c.k.t.AIGeneratedTweetToKafkaConfigDataApplicationTests [ai-generated-tweet-to-kafka] - Started AIGeneratedTweetToKafkaConfigDataApplicationTests in 0.672 seconds (process running for 1.52)
+2026-05-09T08:26:58.878+05:30 [main] INFO  c.k.t.AIGeneratedTweetToKafkaApplication [ai-generated-tweet-to-kafka] - Application started...
+2026-05-09T08:26:58.878+05:30 [main] INFO  c.k.t.AIGeneratedTweetToKafkaApplication [ai-generated-tweet-to-kafka] - Stream initialized...
+2026-05-09T08:26:58.879+05:30 [main] INFO  c.k.t.AIGeneratedTweetToKafkaApplication [ai-generated-tweet-to-kafka] - Keyword: [Java, Microservices, Spring, kafka, ElasticSearch]
+2026-05-09T08:26:58.879+05:30 [scheduling-1] INFO  c.k.tweets.runner.AIStreamRunner [ai-generated-tweet-to-kafka] - Generated tweet: Open AI Generated Tweet
