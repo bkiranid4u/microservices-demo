@@ -1,8 +1,0 @@
-{
-  "properties": [
-    {
-      "name": "ai-generated-tweet-to-kafka.streaming-data-keywords",
-      "type": "java.lang.String",
-      "description": " Description for ai-generated-tweet-to-kafka.streaming-data-keywords."
-  }
-] }
