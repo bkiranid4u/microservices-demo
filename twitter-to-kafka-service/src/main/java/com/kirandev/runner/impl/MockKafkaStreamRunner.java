@@ -97,7 +97,7 @@ public class MockKafkaStreamRunner implements StreamRunner {
         tweetJson.put("created_at", new Date().toString());
 
         // Datafaker automatically mixes the tracking target keywords into the generated block
-        tweetJson.put("text", faker.twitter().text(keywords, 140,16));
+        tweetJson.put("text", faker.twitter().text(keywords, 80,16));
 
         ObjectNode userJson = mapper.createObjectNode();
         userJson.put("id", userId);
