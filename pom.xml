@@ -32,6 +32,7 @@
         <avro.version>1.12.1</avro.version>
         <spring.retry>2.0.12</spring.retry>
         <kafka-avro-serializer.version>8.2.0</kafka-avro-serializer.version>
+        <spring-cloud-config-server.version>5.0.3</spring-cloud-config-server.version>
     </properties>
     <repositories>
         <repository>
@@ -87,6 +88,18 @@
                         <artifactId>swagger-core</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-config-server</artifactId>
+                <version>${spring-cloud-config-server.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-config</artifactId>
+                <version>${spring-cloud-config-server.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.twitter4j</groupId>
