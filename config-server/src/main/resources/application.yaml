@@ -1,0 +1,14 @@
+spring:
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        git:
+          uri: "file://${user.home}/devspace/microservices-demo/config-server-repository"
+server:
+  port: 8888
+logging:
+  level:
+    root: info
+    org.spring.framework.cloud.config: DEBUG
