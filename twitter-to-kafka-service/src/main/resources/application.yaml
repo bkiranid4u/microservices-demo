@@ -1,3 +1,11 @@
+spring:
+  config:
+    import: "optional:configserver:"
+  cloud:
+    config:
+      uri: http://localhost:8888
+      name: twitter-to-kafka-service
+      enabled: true
 twitter-to-kafka-service:
   twitter-keywords:
     - Java
