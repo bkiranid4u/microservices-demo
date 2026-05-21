@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layers xmlns="http://springframework.org"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://springframework.org
+                            https://springframework.org">
+    <layerOrder>
+        <layer>dependencies</layer>
+        <layer>spring-boot-loader</layer>
+        <layer>snapshot-dependencies</layer>
+        <layer>internal-modules</layer>
+        <layer>application</layer>
+    </layerOrder>
+    <contents>
+        <!-- Route all internal sibling libraries (com.kirandev) to this layer -->
+        <content>
+            <libraries>
+                <library>com.kirandev:*:*</library>
+            </libraries>
+            <destination>internal-modules</destination>
+        </content>
+        <!-- Route external snapshot dependencies if any exist -->
+        <content>
+            <libraries>
+                <include>*:*:-SNAPSHOT</include>
+            </libraries>
+            <destination>snapshot-dependencies</destination>
+        </content>
+        <!-- Route all other third-party dependencies (Spring, Kafka, etc.) -->
+        <content>
+            <libraries>
+                <library>*:*:*</library>
+            </libraries>
+            <destination>dependencies</destination>
+        </content>
+        <!-- Route application resources and classes of the current executable module -->
+        <content>
+            <into>application</into>
+        </content>
+    </contents>
+</layers>

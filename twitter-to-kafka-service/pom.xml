@@ -12,6 +12,10 @@
     <artifactId>twitter-to-kafka-service</artifactId>
     <name>twitter-to-kafka-service</name>
     <description>twitter-to-kafka-service</description>
+    <properties>
+        <!-- Stop this executable Fat JAR from being copied to ~/.m2 -->
+        <maven.install.skip>true</maven.install.skip>
+    </properties>
 
     <dependencies>
         <!-- Keep only ONE entry for app-config-data -->
@@ -81,11 +85,14 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <phase>install</phase>
                         <goals>
-                            <goal>
-                                build-image
-                            </goal>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>build-image</id>
+                        <goals>
+                            <goal>build-image-no-fork</goal>
                         </goals>
                     </execution>
                 </executions>

@@ -1,14 +1,24 @@
 spring:
-  profiles:
-    active: native
   cloud:
     config:
       server:
         git:
-          uri: "file://${user.home}/devspace/microservices-demo/config-server-repository"
+          uri: "file:///Users/kiran4dev/Documents/devspace/microservices-demo/config-server-repository"
+          default-label: main
+          force-pull: true
+  application:
+    name: config-server
 server:
   port: 8888
 logging:
   level:
     root: info
     org.spring.framework.cloud.config: DEBUG
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always

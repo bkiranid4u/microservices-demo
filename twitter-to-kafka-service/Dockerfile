@@ -1,48 +1,68 @@
-## ─────────────────────────────────────────
-## Stage 1: Build
-## Spring Boot 4 + Java 25 ready
-## ─────────────────────────────────────────
-#FROM maven:3.9.16-eclipse-temurin-25-alpine AS builder
-#
-#WORKDIR /build
-#
-## Cache dependencies first (only re-runs if pom.xml changes)
-#COPY pom.xml .
-#RUN mvn dependency:go-offline -B
-#
-## Copy source and build
-#COPY src ./src
-#RUN mvn clean package -DskipTests -B
-#
-## ─────────────────────────────────────────
-## Stage 2: Runtime
-## eclipse-temurin:25-jre (Ubuntu Noble — no Alpine JRE for Java 25)
-## ─────────────────────────────────────────
-#FROM eclipse-temurin:25-jre
-#
-## Add a non-root user for security
-#RUN groupadd -r appgroup && useradd -r -g appgroup appuser
-#
-#WORKDIR /app
-#
-## Copy the built jar from the builder stage
-#COPY --from=builder /build/target/twitter-to-kafka-service-*.jar app.jar
-#
-## Set ownership
-#RUN chown -R appuser:appgroup /app
-#
-#USER appuser
-#
-## Expose the application port
-#EXPOSE 8080
-#
-## JVM tuning for containers
-## Java 25: ZGC is production-ready and preferred for low-latency workloads
-## Virtual threads (Project Loom) are stable — no extra flags needed
-#ENV JAVA_OPTS="-XX:+UseContainerSupport \
-#               -XX:MaxRAMPercentage=75.0 \
-#               -XX:+UseZGC \
-#               -XX:+ZGenerational \
-#               -Djava.security.egd=file:/dev/./urandom"
-#
-#ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
+# =============================================================================
+# twitter-to-kafka-service/Dockerfile — Option B (Self-contained)
+# Usage: docker build -f twitter-to-kafka-service/Dockerfile -t com.kirandev/twitter.to.kafka.service:0.0.1-SNAPSHOT .
+# Context: must be run from project ROOT so all module sources are available
+# =============================================================================
+
+# =============================================================================
+# Stage 1: Build only twitter-to-kafka-service and its library dependencies
+# =============================================================================
+FROM maven:3.9-eclipse-temurin-25 AS builder
+WORKDIR /build
+
+# --- Parent POM ---
+COPY pom.xml .
+
+# --- Only the POMs for twitter-to-kafka-service and its library dependencies ---
+# Direct library deps: app-config-data, kafka-admin, kafka-producer
+# kafka-admin and kafka-producer live under kafka/ aggregator
+COPY app-config-data/pom.xml                    app-config-data/
+COPY common-config/pom.xml                      common-config/
+COPY kafka/pom.xml                              kafka/
+COPY kafka/kafka-model/pom.xml                  kafka/kafka-model/
+COPY kafka/kafka-admin/pom.xml                  kafka/kafka-admin/
+COPY kafka/kafka-producer/pom.xml               kafka/kafka-producer/
+COPY twitter-to-kafka-service/pom.xml           twitter-to-kafka-service/
+
+# --- Download dependencies for these modules only ---
+RUN mvn dependency:go-offline -B --no-transfer-progress \
+    -pl twitter-to-kafka-service -am
+
+# --- Copy only the source needed ---
+COPY app-config-data/src                app-config-data/src
+COPY common-config/src                  common-config/src
+COPY kafka/kafka-model/src              kafka/kafka-model/src
+COPY kafka/kafka-admin/src              kafka/kafka-admin/src
+COPY kafka/kafka-producer/src           kafka/kafka-producer/src
+COPY twitter-to-kafka-service/src       twitter-to-kafka-service/src
+
+# --- Build twitter-to-kafka-service and its libraries ---
+# -pl twitter-to-kafka-service: target module
+# -am: also compile all library dependencies first
+RUN mvn clean package -DskipTests -B --no-transfer-progress \
+    -Dspring-boot.build-image.skip=true \
+    -pl twitter-to-kafka-service -am
+
+
+# =============================================================================
+# Stage 2: Lean runtime image
+# =============================================================================
+FROM eclipse-temurin:25-jre-alpine
+
+RUN addgroup -S appgroup && adduser -S -G appgroup appuser
+
+WORKDIR /app
+
+COPY --from=builder /build/twitter-to-kafka-service/target/*.jar app.jar
+
+RUN chown appuser:appgroup app.jar
+
+USER appuser
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", \
+    "-XX:+UseContainerSupport", \
+    "-XX:MaxRAMPercentage=75.0", \
+    "-Djava.security.egd=file:/dev/./urandom", \
+    "-jar", "app.jar"]
