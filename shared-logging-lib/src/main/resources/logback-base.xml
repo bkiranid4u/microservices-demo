@@ -4,21 +4,19 @@
   Services include via: <include resource="logback-base.xml"/>
 
   Profiles:
-    local          — human-readable coloured console
-    docker,k8s,... — JSON stdout for log shippers (Fluent Bit, Splunk, Loki, Dynatrace)
+    local   — human-readable coloured console
+    default — JSON stdout (Docker, CI, staging, prod)
 
-  OpenTelemetry: OpenTelemetryMdcTurboFilter copies active span trace/span IDs
-  into MDC for correlation when an OTel agent (Dynatrace OneAgent, Splunk OTel,
-  Grafana Alloy) or the OTel SDK is present.
-
-  MDC keys propagated in JSON output:
-    traceId / spanId       — W3C/B3 trace context (from HTTP filter or OTel agent)
-    trace_id / span_id     — OTel semantic convention names (OTel MDC bridge)
-    serviceId              — spring.application.name
-    requestId              — per-HTTP-request UUID or X-Request-Id header
-    correlationId          — business correlation identifier
-    kafka.topic/partition  — set by KafkaMdcRecordInterceptor for consumers
-    deployment.environment — active Spring profile or DEPLOYMENT_ENVIRONMENT env var
+  MDC keys written to JSON output:
+    traceId / spanId        — W3C/B3 trace context (set by MdcFilter for HTTP,
+                              or KafkaMdcRecordInterceptor for Kafka consumers)
+    serviceId               — spring.application.name
+    requestId               — per-request UUID or X-Request-Id header
+    correlationId           — business correlation identifier
+    userId                  — optional user identifier
+    httpMethod / httpPath   — HTTP verb and sanitised path
+    kafka.topic/partition   — set by KafkaMdcRecordInterceptor
+    deployment.environment  — active Spring profile or DEPLOYMENT_ENVIRONMENT env var
 -->
 <included>
 
@@ -34,9 +32,6 @@
     <springProperty name="LOG_PATH"
                     source="logging.file.path"
                     defaultValue="./logs"/>
-    <springProperty name="FILE_ENABLED"
-                    source="kirandev.logging.file-enabled"
-                    defaultValue="false"/>
     <springProperty name="MAX_HISTORY"
                     source="logging.logback.rollingpolicy.max-history"
                     defaultValue="14"/>
@@ -45,18 +40,15 @@
                     defaultValue="100MB"/>
     <springProperty name="HOST_NAME"
                     source="kirandev.logging.host"
-                    defaultValue="${HOSTNAME:-${POD_NAME:-unknown}}"/>
+                    defaultValue="${HOSTNAME:-unknown}"/>
     <springProperty name="DEPLOYMENT_ENV"
                     source="kirandev.logging.deployment-environment"
-                    defaultValue="${DEPLOYMENT_ENVIRONMENT:-${OTEL_DEPLOYMENT_ENVIRONMENT:-${SPRING_PROFILES_ACTIVE:-default}}}"/>
-
-    <!-- OTel log-trace correlation (Dynatrace OneAgent, Splunk OTel, Grafana Alloy, etc.) -->
-    <turboFilter class="io.opentelemetry.instrumentation.logback.mdc.v1_0.OpenTelemetryMdcTurboFilter"/>
+                    defaultValue="${DEPLOYMENT_ENVIRONMENT:-${SPRING_PROFILES_ACTIVE:-default}}"/>
 
     <property name="CONSOLE_PATTERN"
               value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p){highlight} %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %X{traceId:-} %X{spanId:-} %m%n%wEx"/>
 
-    <!-- JSON console — Docker, Kubernetes, CI, staging, prod -->
+    <!-- JSON console — all profiles except local -->
     <springProfile name="!local">
         <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
             <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
@@ -78,23 +70,23 @@
                     <mdc>
                         <includeMdcKeyName>traceId</includeMdcKeyName>
                         <includeMdcKeyName>spanId</includeMdcKeyName>
-                        <includeMdcKeyName>trace_id</includeMdcKeyName>
-                        <includeMdcKeyName>span_id</includeMdcKeyName>
                         <includeMdcKeyName>serviceId</includeMdcKeyName>
                         <includeMdcKeyName>requestId</includeMdcKeyName>
                         <includeMdcKeyName>correlationId</includeMdcKeyName>
                         <includeMdcKeyName>userId</includeMdcKeyName>
                         <includeMdcKeyName>httpMethod</includeMdcKeyName>
                         <includeMdcKeyName>httpPath</includeMdcKeyName>
+                        <includeMdcKeyName>kafka.topic</includeMdcKeyName>
+                        <includeMdcKeyName>kafka.partition</includeMdcKeyName>
+                        <includeMdcKeyName>kafka.offset</includeMdcKeyName>
                         <includeMdcKeyName>deployment.environment</includeMdcKeyName>
                     </mdc>
                     <pattern>
                         <pattern>
                             {
                               "service.name": "${APP_NAME}",
-                              "service.instance.id": "${HOST_NAME}",
-                              "deployment.environment": "${DEPLOYMENT_ENV}",
-                              "host.name": "${HOST_NAME}"
+                              "host.name": "${HOST_NAME}",
+                              "deployment.environment": "${DEPLOYMENT_ENV}"
                             }
                         </pattern>
                     </pattern>
@@ -125,10 +117,9 @@
         <encoder class="net.logstash.logback.encoder.LogstashEncoder">
             <includeMdcKeyName>traceId</includeMdcKeyName>
             <includeMdcKeyName>spanId</includeMdcKeyName>
-            <includeMdcKeyName>trace_id</includeMdcKeyName>
-            <includeMdcKeyName>span_id</includeMdcKeyName>
             <includeMdcKeyName>serviceId</includeMdcKeyName>
             <includeMdcKeyName>requestId</includeMdcKeyName>
+            <includeMdcKeyName>correlationId</includeMdcKeyName>
             <customFields>{"service.name":"${APP_NAME}","host.name":"${HOST_NAME}"}</customFields>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
@@ -168,7 +159,6 @@
     <logger name="io.netty" level="WARN"/>
     <logger name="reactor.netty" level="WARN"/>
     <logger name="org.flywaydb" level="INFO"/>
-    <logger name="io.opentelemetry" level="WARN"/>
 
     <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook">
         <delay>2000</delay>

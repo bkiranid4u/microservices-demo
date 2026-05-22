@@ -27,7 +27,6 @@ public class ServiceMdcInitializer implements ApplicationRunner {
         MDC.put(LoggingMdc.SERVICE_ID, serviceName);
         String deploymentEnv = MdcContext.firstNonBlank(
                 environment.getProperty("DEPLOYMENT_ENVIRONMENT"),
-                environment.getProperty("OTEL_DEPLOYMENT_ENVIRONMENT"),
                 String.join(",", environment.getActiveProfiles()));
         if (deploymentEnv != null) {
             MDC.put("deployment.environment", deploymentEnv);

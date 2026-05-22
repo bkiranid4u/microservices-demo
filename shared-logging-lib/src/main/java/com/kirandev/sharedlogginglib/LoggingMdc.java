@@ -17,10 +17,6 @@ public final class LoggingMdc {
     public static final String HTTP_METHOD = "httpMethod";
     public static final String HTTP_PATH = "httpPath";
 
-    /** OTel MDC bridge may also populate these keys when the agent/SDK is active. */
-    public static final String OTEL_TRACE_ID = "trace_id";
-    public static final String OTEL_SPAN_ID = "span_id";
-
     /** Kafka message context keys — set by KafkaMdcRecordInterceptor. */
     public static final String KAFKA_TOPIC = "kafka.topic";
     public static final String KAFKA_PARTITION = "kafka.partition";

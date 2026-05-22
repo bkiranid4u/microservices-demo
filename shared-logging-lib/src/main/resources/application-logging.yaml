@@ -18,7 +18,3 @@ logging:
       max-file-size: 100MB
       total-size-cap: 2GB
 
-management:
-  tracing:
-    sampling:
-      probability: 1.0

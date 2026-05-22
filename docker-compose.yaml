@@ -24,13 +24,6 @@ services:
       LOGGING_LEVEL_ROOT: INFO
       LOGGING_FILE_PATH: /var/log/app
       LOGGING_LOGBACK_ROLLINGPOLICY_MAX_HISTORY: 14
-      # OTel — point to collector when running with observability overlay
-      OTEL_SERVICE_NAME: config-server
-      OTEL_RESOURCE_ATTRIBUTES: deployment.environment=docker,service.namespace=microservices-demo
-      OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4317
-      OTEL_EXPORTER_OTLP_PROTOCOL: grpc
-      OTEL_TRACES_SAMPLER: parentbased_traceidratio
-      OTEL_TRACES_SAMPLER_ARG: "1.0"
       DEPLOYMENT_ENVIRONMENT: docker
     tmpfs:
       - /tmp
@@ -63,13 +56,6 @@ services:
       LOGGING_LEVEL_ROOT: INFO
       LOGGING_FILE_PATH: /var/log/app
       LOGGING_LOGBACK_ROLLINGPOLICY_MAX_HISTORY: 14
-      # OTel — point to collector when running with observability overlay
-      OTEL_SERVICE_NAME: twitter-to-kafka-service
-      OTEL_RESOURCE_ATTRIBUTES: deployment.environment=docker,service.namespace=microservices-demo
-      OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4317
-      OTEL_EXPORTER_OTLP_PROTOCOL: grpc
-      OTEL_TRACES_SAMPLER: parentbased_traceidratio
-      OTEL_TRACES_SAMPLER_ARG: "1.0"
       DEPLOYMENT_ENVIRONMENT: docker
 
     depends_on:

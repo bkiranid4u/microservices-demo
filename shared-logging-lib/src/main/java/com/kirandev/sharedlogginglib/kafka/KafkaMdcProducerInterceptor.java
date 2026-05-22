@@ -32,8 +32,8 @@ public class KafkaMdcProducerInterceptor<K, V> implements ProducerInterceptor<K,
 
     @Override
     public ProducerRecord<K, V> onSend(ProducerRecord<K, V> record) {
-        String traceId = firstNonBlank(MDC.get(LoggingMdc.TRACE_ID), MDC.get(LoggingMdc.OTEL_TRACE_ID));
-        String spanId = firstNonBlank(MDC.get(LoggingMdc.SPAN_ID), MDC.get(LoggingMdc.OTEL_SPAN_ID));
+        String traceId = MDC.get(LoggingMdc.TRACE_ID);
+        String spanId = MDC.get(LoggingMdc.SPAN_ID);
         String correlationId = MDC.get(LoggingMdc.CORRELATION_ID);
 
         if (traceId != null && spanId != null) {
@@ -71,12 +71,5 @@ public class KafkaMdcProducerInterceptor<K, V> implements ProducerInterceptor<K,
         return "0".repeat(targetLength - value.length()) + value;
     }
 
-    private String firstNonBlank(String... values) {
-        for (String v : values) {
-            if (v != null && !v.isBlank()) {
-                return v;
-            }
-        }
-        return null;
-    }
+
 }
