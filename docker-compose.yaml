@@ -20,15 +20,26 @@ services:
     ports:
       - "8888:8888"
     environment:
-      SPRING_PROFILES_ACTIVE: default
+      SPRING_PROFILES_ACTIVE: docker
+      LOGGING_LEVEL_ROOT: INFO
+      LOGGING_FILE_PATH: /var/log/app
+      LOGGING_LOGBACK_ROLLINGPOLICY_MAX_HISTORY: 14
+      # OTel — point to collector when running with observability overlay
+      OTEL_SERVICE_NAME: config-server
+      OTEL_RESOURCE_ATTRIBUTES: deployment.environment=docker,service.namespace=microservices-demo
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4317
+      OTEL_EXPORTER_OTLP_PROTOCOL: grpc
+      OTEL_TRACES_SAMPLER: parentbased_traceidratio
+      OTEL_TRACES_SAMPLER_ARG: "1.0"
+      DEPLOYMENT_ENVIRONMENT: docker
     tmpfs:
       - /tmp
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8888/actuator/health" ]
+      test: [ "CMD", "curl", "-f", "http://localhost:8888/actuator/health/liveness" ]
       interval: 10s
       timeout: 5s
       retries: 5
-      start_period: 10s
+      start_period: 30s
     networks:
       - kafka-net
 
@@ -46,8 +57,21 @@ services:
     ports:
       - "8080:8080"
     environment:
+      SPRING_PROFILES_ACTIVE: docker
       SPRING_CLOUD_CONFIG_URI: http://config-server:8888
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka-1:9092,kafka-2:9092,kafka-3:9092
+      LOGGING_LEVEL_ROOT: INFO
+      LOGGING_FILE_PATH: /var/log/app
+      LOGGING_LOGBACK_ROLLINGPOLICY_MAX_HISTORY: 14
+      # OTel — point to collector when running with observability overlay
+      OTEL_SERVICE_NAME: twitter-to-kafka-service
+      OTEL_RESOURCE_ATTRIBUTES: deployment.environment=docker,service.namespace=microservices-demo
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4317
+      OTEL_EXPORTER_OTLP_PROTOCOL: grpc
+      OTEL_TRACES_SAMPLER: parentbased_traceidratio
+      OTEL_TRACES_SAMPLER_ARG: "1.0"
+      DEPLOYMENT_ENVIRONMENT: docker
+
     depends_on:
       config-server:
         condition: service_healthy
@@ -177,7 +201,7 @@ services:
       - "8081:8081"
     environment:
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
-      SCHEMA_REGISTRY_LISTENERS: http://schema-registry:8081
+      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
       SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: 'PLAINTEXT://kafka-1:9092,PLAINTEXT://kafka-2:9092,PLAINTEXT://kafka-3:9092'
     depends_on:
       kafka-1:
@@ -191,7 +215,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-      start_period: 15s
+      start_period: 30s
     networks:
       - kafka-net
 

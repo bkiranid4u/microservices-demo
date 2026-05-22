@@ -1,24 +1,44 @@
 spring:
+  application:
+    name: config-server
+  config:
+    import: "optional:classpath:application-logging.yaml"
   cloud:
     config:
       server:
+        health:
+          enabled: false               # stops self-health-check
         git:
-          uri: "file:///Users/kiran4dev/Documents/devspace/microservices-demo/config-server-repository"
+          uri: ${CONFIG_REPO_URI:file:///Users/kiran4dev/Documents/devspace/microservices-demo/config-server-repository}
           default-label: main
           force-pull: true
-  application:
-    name: config-server
+      import-check:
+        enabled: false
+
 server:
   port: 8888
+
 logging:
   level:
-    root: info
-    org.spring.framework.cloud.config: DEBUG
+    root: INFO
+    org.springframework.cloud.config: DEBUG
+
 management:
   endpoints:
     web:
       exposure:
-        include: health
+        include: health, info
   endpoint:
     health:
       show-details: always
+      show-components: always
+      probes:
+        enabled: true
+      group:
+        liveness:
+          include: livenessState
+        readiness:
+          include: readinessState
+  health:
+    discovery:
+      enabled: false                   # stops discoveryComposite UNKNOWN

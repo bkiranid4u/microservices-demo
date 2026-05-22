@@ -1,0 +1,122 @@
+# =============================================================================
+# OpenTelemetry Collector — local development (Grafana Loki + Tempo + stdout)
+#
+# Used by: docker-compose/observability.yml
+#
+# For production backends configure the env vars referenced below and enable
+# the matching exporter pipeline. Supports:
+#   • Grafana Loki / Tempo (default local stack)
+#   • Dynatrace (OTLP over HTTPS) — set DYNATRACE_ENDPOINT + DYNATRACE_API_TOKEN
+#   • Splunk HEC                  — set SPLUNK_HEC_ENDPOINT + SPLUNK_HEC_TOKEN
+# =============================================================================
+
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317      # Services send OTLP gRPC here
+      http:
+        endpoint: 0.0.0.0:4318      # Services send OTLP HTTP here
+
+processors:
+  batch:
+    send_batch_max_size: 1000
+    send_batch_size: 200
+    timeout: 5s
+
+  memory_limiter:
+    limit_mib: 256
+    spike_limit_mib: 64
+    check_interval: 5s
+
+  # Adds deployment metadata to all telemetry
+  resource:
+    attributes:
+      - key: service.namespace
+        value: microservices-demo
+        action: upsert
+      - key: collector.version
+        value: "contrib-0.104"
+        action: insert
+
+exporters:
+  # ─── Local: Grafana Loki (logs) ──────────────────────────────────────────
+  loki:
+    endpoint: http://loki:3100/loki/api/v1/push
+    default_labels_enabled:
+      exporter: false
+      job: true
+      instance: true
+      level: true
+    tls:
+      insecure: true
+
+  # ─── Local: Grafana Tempo (traces) ───────────────────────────────────────
+  otlp/tempo:
+    endpoint: http://tempo:4317
+    tls:
+      insecure: true
+
+  # ─── Local: Prometheus remote-write (metrics) ────────────────────────────
+  prometheus:
+    endpoint: "0.0.0.0:8889"
+    namespace: microservices_demo
+
+  # ─── Debug: structured stdout (always useful for local troubleshooting) ───
+  debug:
+    verbosity: basic    # change to "detailed" for full payload
+
+  # ─── Production: Dynatrace OTLP ──────────────────────────────────────────
+  # Uncomment and set env vars: DYNATRACE_ENDPOINT, DYNATRACE_API_TOKEN
+  # DYNATRACE_ENDPOINT example: https://<env-id>.live.dynatrace.com/api/v2/otlp
+  # otlphttp/dynatrace:
+  #   endpoint: "${env:DYNATRACE_ENDPOINT}"
+  #   headers:
+  #     Authorization: "Api-Token ${env:DYNATRACE_API_TOKEN}"
+  #   compression: gzip
+
+  # ─── Production: Splunk HEC ──────────────────────────────────────────────
+  # Uncomment and set env vars: SPLUNK_HEC_ENDPOINT, SPLUNK_HEC_TOKEN
+  # splunk_hec/logs:
+  #   token: "${env:SPLUNK_HEC_TOKEN}"
+  #   endpoint: "${env:SPLUNK_HEC_ENDPOINT}"
+  #   source: "microservices-demo"
+  #   sourcetype: "_json"
+  #   index: "main"
+  #   tls:
+  #     insecure_skip_verify: false
+
+service:
+  telemetry:
+    logs:
+      level: "warn"
+    metrics:
+      address: ":8888"   # Collector self-monitoring metrics
+
+  pipelines:
+    logs:
+      receivers: [otlp]
+      processors: [memory_limiter, resource, batch]
+      exporters: [debug, loki]
+
+    traces:
+      receivers: [otlp]
+      processors: [memory_limiter, resource, batch]
+      exporters: [debug, otlp/tempo]
+
+    metrics:
+      receivers: [otlp]
+      processors: [memory_limiter, resource, batch]
+      exporters: [prometheus]
+
+  # Uncomment individual exporters to route to production backends:
+  # pipelines:
+  #   logs/dynatrace:
+  #     receivers: [otlp]
+  #     processors: [memory_limiter, resource, batch]
+  #     exporters: [otlphttp/dynatrace]
+  #
+  #   logs/splunk:
+  #     receivers: [otlp]
+  #     processors: [memory_limiter, resource, batch]
+  #     exporters: [splunk_hec/logs]

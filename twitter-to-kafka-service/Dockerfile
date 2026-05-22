@@ -18,6 +18,7 @@ COPY pom.xml .
 # kafka-admin and kafka-producer live under kafka/ aggregator
 COPY app-config-data/pom.xml                    app-config-data/
 COPY common-config/pom.xml                      common-config/
+COPY config-server/pom.xml                      config-server/
 COPY kafka/pom.xml                              kafka/
 COPY kafka/kafka-model/pom.xml                  kafka/kafka-model/
 COPY kafka/kafka-admin/pom.xml                  kafka/kafka-admin/
@@ -55,7 +56,8 @@ WORKDIR /app
 
 COPY --from=builder /build/twitter-to-kafka-service/target/*.jar app.jar
 
-RUN chown appuser:appgroup app.jar
+RUN mkdir -p /app/twitter-to-kafka-service/logs \
+    && chown -R appuser:appgroup /app
 
 USER appuser
 

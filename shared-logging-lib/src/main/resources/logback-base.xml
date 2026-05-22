@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Shared Logback fragment — packaged in shared-logging-lib.
+  Services include via: <include resource="logback-base.xml"/>
+
+  Profiles:
+    local          — human-readable coloured console
+    docker,k8s,... — JSON stdout for log shippers (Fluent Bit, Splunk, Loki, Dynatrace)
+
+  OpenTelemetry: OpenTelemetryMdcTurboFilter copies active span trace/span IDs
+  into MDC for correlation when an OTel agent (Dynatrace OneAgent, Splunk OTel,
+  Grafana Alloy) or the OTel SDK is present.
+
+  MDC keys propagated in JSON output:
+    traceId / spanId       — W3C/B3 trace context (from HTTP filter or OTel agent)
+    trace_id / span_id     — OTel semantic convention names (OTel MDC bridge)
+    serviceId              — spring.application.name
+    requestId              — per-HTTP-request UUID or X-Request-Id header
+    correlationId          — business correlation identifier
+    kafka.topic/partition  — set by KafkaMdcRecordInterceptor for consumers
+    deployment.environment — active Spring profile or DEPLOYMENT_ENVIRONMENT env var
+-->
+<included>
+
+    <!-- Spring Boot colour patterns and defaults for local console format -->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <springProperty name="APP_NAME"
+                    source="spring.application.name"
+                    defaultValue="${SPRING_APPLICATION_NAME:-service}"/>
+    <springProperty name="LOG_LEVEL"
+                    source="logging.level.root"
+                    defaultValue="INFO"/>
+    <springProperty name="LOG_PATH"
+                    source="logging.file.path"
+                    defaultValue="./logs"/>
+    <springProperty name="FILE_ENABLED"
+                    source="kirandev.logging.file-enabled"
+                    defaultValue="false"/>
+    <springProperty name="MAX_HISTORY"
+                    source="logging.logback.rollingpolicy.max-history"
+                    defaultValue="14"/>
+    <springProperty name="MAX_SIZE"
+                    source="logging.logback.rollingpolicy.max-file-size"
+                    defaultValue="100MB"/>
+    <springProperty name="HOST_NAME"
+                    source="kirandev.logging.host"
+                    defaultValue="${HOSTNAME:-${POD_NAME:-unknown}}"/>
+    <springProperty name="DEPLOYMENT_ENV"
+                    source="kirandev.logging.deployment-environment"
+                    defaultValue="${DEPLOYMENT_ENVIRONMENT:-${OTEL_DEPLOYMENT_ENVIRONMENT:-${SPRING_PROFILES_ACTIVE:-default}}}"/>
+
+    <!-- OTel log-trace correlation (Dynatrace OneAgent, Splunk OTel, Grafana Alloy, etc.) -->
+    <turboFilter class="io.opentelemetry.instrumentation.logback.mdc.v1_0.OpenTelemetryMdcTurboFilter"/>
+
+    <property name="CONSOLE_PATTERN"
+              value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p){highlight} %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %X{traceId:-} %X{spanId:-} %m%n%wEx"/>
+
+    <!-- JSON console — Docker, Kubernetes, CI, staging, prod -->
+    <springProfile name="!local">
+        <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+                <providers>
+                    <timestamp>
+                        <fieldName>timestamp</fieldName>
+                        <pattern>yyyy-MM-dd'T'HH:mm:ss.SSSZZ</pattern>
+                    </timestamp>
+                    <logLevel>
+                        <fieldName>level</fieldName>
+                    </logLevel>
+                    <loggerName>
+                        <fieldName>logger</fieldName>
+                    </loggerName>
+                    <threadName>
+                        <fieldName>thread</fieldName>
+                    </threadName>
+                    <message/>
+                    <mdc>
+                        <includeMdcKeyName>traceId</includeMdcKeyName>
+                        <includeMdcKeyName>spanId</includeMdcKeyName>
+                        <includeMdcKeyName>trace_id</includeMdcKeyName>
+                        <includeMdcKeyName>span_id</includeMdcKeyName>
+                        <includeMdcKeyName>serviceId</includeMdcKeyName>
+                        <includeMdcKeyName>requestId</includeMdcKeyName>
+                        <includeMdcKeyName>correlationId</includeMdcKeyName>
+                        <includeMdcKeyName>userId</includeMdcKeyName>
+                        <includeMdcKeyName>httpMethod</includeMdcKeyName>
+                        <includeMdcKeyName>httpPath</includeMdcKeyName>
+                        <includeMdcKeyName>deployment.environment</includeMdcKeyName>
+                    </mdc>
+                    <pattern>
+                        <pattern>
+                            {
+                              "service.name": "${APP_NAME}",
+                              "service.instance.id": "${HOST_NAME}",
+                              "deployment.environment": "${DEPLOYMENT_ENV}",
+                              "host.name": "${HOST_NAME}"
+                            }
+                        </pattern>
+                    </pattern>
+                    <stackTrace>
+                        <throwableConverter class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
+                            <maxDepthPerCause>20</maxDepthPerCause>
+                            <maxLength>4096</maxLength>
+                            <rootCauseFirst>true</rootCauseFirst>
+                        </throwableConverter>
+                    </stackTrace>
+                </providers>
+            </encoder>
+        </appender>
+    </springProfile>
+
+    <!-- Human-readable console — local IDE development -->
+    <springProfile name="local">
+        <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>${CONSOLE_PATTERN}</pattern>
+                <charset>UTF-8</charset>
+            </encoder>
+        </appender>
+    </springProfile>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/${APP_NAME}.log</file>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <includeMdcKeyName>traceId</includeMdcKeyName>
+            <includeMdcKeyName>spanId</includeMdcKeyName>
+            <includeMdcKeyName>trace_id</includeMdcKeyName>
+            <includeMdcKeyName>span_id</includeMdcKeyName>
+            <includeMdcKeyName>serviceId</includeMdcKeyName>
+            <includeMdcKeyName>requestId</includeMdcKeyName>
+            <customFields>{"service.name":"${APP_NAME}","host.name":"${HOST_NAME}"}</customFields>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/archived/${APP_NAME}-%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <maxFileSize>${MAX_SIZE}</maxFileSize>
+            <maxHistory>${MAX_HISTORY}</maxHistory>
+            <totalSizeCap>2GB</totalSizeCap>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+    </appender>
+
+    <appender name="ASYNC_CONSOLE" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="CONSOLE"/>
+        <queueSize>2048</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <neverBlock>true</neverBlock>
+    </appender>
+
+    <appender name="ASYNC_FILE" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="FILE"/>
+        <queueSize>2048</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <neverBlock>true</neverBlock>
+    </appender>
+
+    <logger name="org.springframework" level="WARN"/>
+    <logger name="org.springframework.web" level="INFO"/>
+    <logger name="org.springframework.security" level="WARN"/>
+    <logger name="org.hibernate" level="WARN"/>
+    <logger name="org.hibernate.SQL" level="WARN"/>
+    <logger name="com.zaxxer.hikari" level="WARN"/>
+    <logger name="org.apache.kafka" level="WARN"/>
+    <logger name="org.springframework.kafka" level="WARN"/>
+    <logger name="io.netty" level="WARN"/>
+    <logger name="reactor.netty" level="WARN"/>
+    <logger name="org.flywaydb" level="INFO"/>
+    <logger name="io.opentelemetry" level="WARN"/>
+
+    <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook">
+        <delay>2000</delay>
+    </shutdownHook>
+
+</included>

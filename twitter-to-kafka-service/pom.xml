@@ -18,6 +18,10 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.kirandev</groupId>
+            <artifactId>shared-logging-lib</artifactId>
+        </dependency>
         <!-- Keep only ONE entry for app-config-data -->
         <dependency>
             <groupId>com.kirandev</groupId>

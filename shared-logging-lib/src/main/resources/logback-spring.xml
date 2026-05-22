@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Default logback configuration shipped inside shared-logging-lib.jar.
+  Services that do NOT provide their own logback-spring.xml inherit this config.
+
+  Services that need service-specific loggers (e.g. DEBUG for their own package) should
+  add src/main/resources/logback-spring.xml containing just:
+
+    <configuration scan="true">
+        <include resource="logback-base.xml"/>
+        <logger name="com.yourpackage" level="DEBUG"/>
+    </configuration>
+-->
+<configuration scan="true" scanPeriod="30 seconds">
+
+    <include resource="logback-base.xml"/>
+
+    <!-- Application packages at DEBUG — override with logging.level.com.kirandev=WARN to quiet -->
+    <logger name="com.kirandev" level="DEBUG"/>
+
+</configuration>

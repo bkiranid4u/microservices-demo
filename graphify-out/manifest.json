@@ -1,0 +1,202 @@
+{
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/common-config/src/main/java/com/kirandev/common/config/RetryConfig.java": {
+    "mtime": 1778844768.3557308,
+    "ast_hash": "1429448e0bf4fcdb75172ad7fa6c3a62",
+    "semantic_hash": "1429448e0bf4fcdb75172ad7fa6c3a62"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/app-config-data/src/main/java/com/kirandev/configdata/RetryConfigData.java": {
+    "mtime": 1778815422.9927967,
+    "ast_hash": "ef595f32a5c868b35d621713aa26a2cb",
+    "semantic_hash": "ef595f32a5c868b35d621713aa26a2cb"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/app-config-data/src/main/java/com/kirandev/configdata/KafkaProducerConfigData.java": {
+    "mtime": 1778829256.0881937,
+    "ast_hash": "1112c2d9e80524aa759ef38a2408862a",
+    "semantic_hash": "1112c2d9e80524aa759ef38a2408862a"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/app-config-data/src/main/java/com/kirandev/configdata/TwitterToKafkaServiceConfigData.java": {
+    "mtime": 1778733506.5321465,
+    "ast_hash": "2c170f673c695b8a6947d6df824aac60",
+    "semantic_hash": "2c170f673c695b8a6947d6df824aac60"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/app-config-data/src/main/java/com/kirandev/configdata/KafkaConfigData.java": {
+    "mtime": 1778842615.927594,
+    "ast_hash": "c53b58903325969043501c3dd5e58768",
+    "semantic_hash": "c53b58903325969043501c3dd5e58768"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/.claude/settings.local.json": {
+    "mtime": 1779425884.4892504,
+    "ast_hash": "8a80554c91d9fca8acb82f023de02f11",
+    "semantic_hash": "8a80554c91d9fca8acb82f023de02f11"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/kafka/kafka-admin/src/main/java/com/kirandev/kafka/admin/clients/KafkaAdminClient.java": {
+    "mtime": 1778850092.4978356,
+    "ast_hash": "e4dd4094e2a618d07780950bdc08b61c",
+    "semantic_hash": "e4dd4094e2a618d07780950bdc08b61c"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/kafka/kafka-admin/src/main/java/com/kirandev/kafka/admin/config/WebClientConfig.java": {
+    "mtime": 1778844924.770027,
+    "ast_hash": "ada84483f2ce4a3fda1b93366cdae6b0",
+    "semantic_hash": "ada84483f2ce4a3fda1b93366cdae6b0"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/kafka/kafka-admin/src/main/java/com/kirandev/kafka/admin/config/KafkaAdminConfig.java": {
+    "mtime": 1778823836.5447438,
+    "ast_hash": "05b5b259043d06e0dd901d28e7f3c05d",
+    "semantic_hash": "05b5b259043d06e0dd901d28e7f3c05d"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/kafka/kafka-admin/src/main/java/com/kirandev/kafka/admin/exception/KafkaClientException.java": {
+    "mtime": 1778824779.6580205,
+    "ast_hash": "b72e273085310a8349aac95f84c2ed5a",
+    "semantic_hash": "b72e273085310a8349aac95f84c2ed5a"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/kafka/kafka-producer/src/main/java/com/kirandev/kafka/producer/config/KafkaProducerConfig.java": {
+    "mtime": 1778849974.8950956,
+    "ast_hash": "3dc8db6005cfc8d1e5e56aca1da31e38",
+    "semantic_hash": "3dc8db6005cfc8d1e5e56aca1da31e38"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/kafka/kafka-producer/src/main/java/com/kirandev/kafka/producer/service/TwitterKafkaProducer.java": {
+    "mtime": 1778841355.4413812,
+    "ast_hash": "c8b6eb98a49940a9cb3255598f3632b4",
+    "semantic_hash": "c8b6eb98a49940a9cb3255598f3632b4"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/kafka/kafka-producer/src/main/java/com/kirandev/kafka/producer/service/KafkaProducer.java": {
+    "mtime": 1778841355.4532945,
+    "ast_hash": "67a74acd08395de4a88cda2de736bcd8",
+    "semantic_hash": "67a74acd08395de4a88cda2de736bcd8"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/kafka/kafka-model/src/main/java/com/kirandev/kafka/avro/model/TwitterAvroModel.java": {
+    "mtime": 1778832441.8641286,
+    "ast_hash": "ca2421ca07db04d10b855e8335b3cb3a",
+    "semantic_hash": "ca2421ca07db04d10b855e8335b3cb3a"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/shared-logging-lib/src/test/java/com/kirandev/sharedlogginglib/LoggingAutoConfigurationTest.java": {
+    "mtime": 1779429612.8767872,
+    "ast_hash": "09e8fa67fc1ada8829a4d9f4fd8ab318",
+    "semantic_hash": "09e8fa67fc1ada8829a4d9f4fd8ab318"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/shared-logging-lib/src/main/java/com/kirandev/sharedlogginglib/MdcContext.java": {
+    "mtime": 1779429665.3766649,
+    "ast_hash": "fae81aee8a03c31227016c5c83e2d685",
+    "semantic_hash": "fae81aee8a03c31227016c5c83e2d685"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/shared-logging-lib/src/main/java/com/kirandev/sharedlogginglib/MdcFilter.java": {
+    "mtime": 1779429580.3391976,
+    "ast_hash": "a639be6ab0686d51fdb586b66c5aa5db",
+    "semantic_hash": "a639be6ab0686d51fdb586b66c5aa5db"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/shared-logging-lib/src/main/java/com/kirandev/sharedlogginglib/MdcTaskDecorator.java": {
+    "mtime": 1779420772.7747333,
+    "ast_hash": "22a16f28527e648a715b20bfe4851639",
+    "semantic_hash": "22a16f28527e648a715b20bfe4851639"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/shared-logging-lib/src/main/java/com/kirandev/sharedlogginglib/KafkaLoggingAutoConfiguration.java": {
+    "mtime": 1779439013.8088837,
+    "ast_hash": "7cf37697835a47930dc7b80ceb6a53ba",
+    "semantic_hash": "7cf37697835a47930dc7b80ceb6a53ba"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/shared-logging-lib/src/main/java/com/kirandev/sharedlogginglib/LoggingProperties.java": {
+    "mtime": 1779439031.182547,
+    "ast_hash": "5392a73307e41fb81219e08b3d912b50",
+    "semantic_hash": "5392a73307e41fb81219e08b3d912b50"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/shared-logging-lib/src/main/java/com/kirandev/sharedlogginglib/AsyncMdcConfiguration.java": {
+    "mtime": 1779429573.5718455,
+    "ast_hash": "f8874975967ecb0e6dc63f85f8bd3274",
+    "semantic_hash": "f8874975967ecb0e6dc63f85f8bd3274"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/shared-logging-lib/src/main/java/com/kirandev/sharedlogginglib/ServiceMdcInitializer.java": {
+    "mtime": 1779429651.2178776,
+    "ast_hash": "291243d87359fade45310184f50e71f1",
+    "semantic_hash": "291243d87359fade45310184f50e71f1"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/shared-logging-lib/src/main/java/com/kirandev/sharedlogginglib/LoggingAutoConfiguration.java": {
+    "mtime": 1779429650.0342424,
+    "ast_hash": "82c945e8e5cfca14e8a415249f75d807",
+    "semantic_hash": "82c945e8e5cfca14e8a415249f75d807"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/shared-logging-lib/src/main/java/com/kirandev/sharedlogginglib/LoggingMdc.java": {
+    "mtime": 1779438948.572431,
+    "ast_hash": "79143548f799606c33c6f39b1e9a1627",
+    "semantic_hash": "79143548f799606c33c6f39b1e9a1627"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/shared-logging-lib/src/main/java/com/kirandev/sharedlogginglib/kafka/KafkaMdcRecordInterceptor.java": {
+    "mtime": 1779438996.1373296,
+    "ast_hash": "eab02de55eb891b3795a82b221305f94",
+    "semantic_hash": "eab02de55eb891b3795a82b221305f94"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/shared-logging-lib/src/main/java/com/kirandev/sharedlogginglib/kafka/KafkaMdcProducerInterceptor.java": {
+    "mtime": 1779438972.3141525,
+    "ast_hash": "8f06595544290725960a10e80b698181",
+    "semantic_hash": "8f06595544290725960a10e80b698181"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/config-server/src/test/java/com/kirandev/configserver/ConfigServerApplicationTests.java": {
+    "mtime": 1779206447.649218,
+    "ast_hash": "639aa42538880a39308ad9ae3dcaecb8",
+    "semantic_hash": "639aa42538880a39308ad9ae3dcaecb8"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/config-server/src/main/java/com/kirandev/configserver/ConfigServerApplication.java": {
+    "mtime": 1779200194.287818,
+    "ast_hash": "8c3eb6547b55f9da339b6cc97a3375ca",
+    "semantic_hash": "8c3eb6547b55f9da339b6cc97a3375ca"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/twitter-to-kafka-service/src/test/java/com/kirandev/TwitterToKafkaServiceApplicationTests.java": {
+    "mtime": 1778734536.333323,
+    "ast_hash": "ab9a389977c7f03dd46199cde3fc2e8f",
+    "semantic_hash": "ab9a389977c7f03dd46199cde3fc2e8f"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/twitter-to-kafka-service/src/main/java/com/kirandev/TwitterToKafkaServiceApplication.java": {
+    "mtime": 1778841669.6929135,
+    "ast_hash": "e695f44937cb14b21993c95083cefe65",
+    "semantic_hash": "e695f44937cb14b21993c95083cefe65"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/twitter-to-kafka-service/src/main/java/com/kirandev/init/StreamInitializer.java": {
+    "mtime": 1778840078.5702004,
+    "ast_hash": "0769a2633f4fe218c0b4d84d7fb2aac6",
+    "semantic_hash": "0769a2633f4fe218c0b4d84d7fb2aac6"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/twitter-to-kafka-service/src/main/java/com/kirandev/init/impl/KafkaStreamInitializer.java": {
+    "mtime": 1778840342.7960644,
+    "ast_hash": "6e68dece28b3722867b04e7d48818676",
+    "semantic_hash": "6e68dece28b3722867b04e7d48818676"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/twitter-to-kafka-service/src/main/java/com/kirandev/transformer/TwitterMsgtoAvroSchemaTransformer.java": {
+    "mtime": 1778840816.7776318,
+    "ast_hash": "ffa13df859aa4cdf5c0ac222115e70ac",
+    "semantic_hash": "ffa13df859aa4cdf5c0ac222115e70ac"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/twitter-to-kafka-service/src/main/java/com/kirandev/runner/StreamRunner.java": {
+    "mtime": 1778734327.4633214,
+    "ast_hash": "1d10a90bb04aa7839d658f2d501d9f96",
+    "semantic_hash": "1d10a90bb04aa7839d658f2d501d9f96"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/twitter-to-kafka-service/src/main/java/com/kirandev/runner/impl/MockKafkaStreamRunner.java": {
+    "mtime": 1778851555.9615674,
+    "ast_hash": "c29ff92e2cdb26e1eba0cfae9e20cf76",
+    "semantic_hash": "c29ff92e2cdb26e1eba0cfae9e20cf76"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/twitter-to-kafka-service/src/main/java/com/kirandev/runner/impl/TwitterKafkaStreamRunner.java": {
+    "mtime": 1778847294.6233122,
+    "ast_hash": "e6e686b21c232ef42638b7d846a7e021",
+    "semantic_hash": "e6e686b21c232ef42638b7d846a7e021"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/twitter-to-kafka-service/src/main/java/com/kirandev/runner/impl/BlueskyKafkaStreamRunner.java": {
+    "mtime": 1778848421.3896348,
+    "ast_hash": "4e6beaf670b85c01f7a2969f9cae59f9",
+    "semantic_hash": "4e6beaf670b85c01f7a2969f9cae59f9"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/twitter-to-kafka-service/src/main/java/com/kirandev/listner/TwitterKafkaStatusListener.java": {
+    "mtime": 1778841553.574393,
+    "ast_hash": "d2a804c91a05a9af31149468d10de47a",
+    "semantic_hash": "d2a804c91a05a9af31149468d10de47a"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/twitter-to-kafka-service/src/main/java/com/kirandev/exception/TwitterToKafkaServiceException.java": {
+    "mtime": 1778734405.750085,
+    "ast_hash": "5f906f181f50436e15ad783110a5f045",
+    "semantic_hash": "5f906f181f50436e15ad783110a5f045"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/.claude/settings.json": {
+    "mtime": 1779439137.1481318,
+    "ast_hash": "87f0d903477984d0587a02f8fe185263",
+    "semantic_hash": "87f0d903477984d0587a02f8fe185263"
+  }
+}

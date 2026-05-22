@@ -2,7 +2,9 @@ spring:
   application:
     name: twitter-to-kafka-service
   config:
-    import: "optional:configserver:"
+    import:
+      - "optional:configserver:"
+      - "optional:classpath:application-logging.yaml"
   cloud:
     config:
       uri: http://localhost:8888

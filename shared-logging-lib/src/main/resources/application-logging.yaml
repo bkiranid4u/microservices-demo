@@ -1,0 +1,24 @@
+# Defaults imported when shared-logging-lib is on the classpath.
+# Override per service or via Spring Cloud Config (logging-common.yml).
+
+kirandev:
+  logging:
+    file-enabled: false
+    json-console: true
+    initialize-service-context: true
+
+logging:
+  level:
+    root: INFO
+  file:
+    path: ./logs
+  logback:
+    rollingpolicy:
+      max-history: 14
+      max-file-size: 100MB
+      total-size-cap: 2GB
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0

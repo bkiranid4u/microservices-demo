@@ -13,6 +13,7 @@ WORKDIR /build
 COPY pom.xml .
 
 # All module POMs (layer cache: only invalidated if a POM changes)
+COPY shared-logging-lib/pom.xml         shared-logging-lib/
 COPY app-config-data/pom.xml            app-config-data/
 COPY common-config/pom.xml              common-config/
 COPY config-server/pom.xml              config-server/
@@ -27,6 +28,7 @@ RUN --mount=type=cache,target=/root/.m2 \
     mvn dependency:go-offline -B --no-transfer-progress
 
 # All source code
+COPY shared-logging-lib/src         shared-logging-lib/src
 COPY app-config-data/src            app-config-data/src
 COPY common-config/src              common-config/src
 COPY config-server/src              config-server/src
@@ -47,7 +49,7 @@ RUN --mount=type=cache,target=/root/.m2 \
 FROM eclipse-temurin:25-jre-alpine AS config-server
 
 # ✅ 1. Install git (Required because Spring Cloud Config Server relies on local Git/JGit execution)
-RUN apk add --no-cache git
+RUN apk add --no-cache git curl
 
 # Create the dedicated non-root user matching your environment uid/gid profile
 RUN addgroup -S -g 1000 appgroup && adduser -S -u 1000 -G appgroup appuser
