@@ -12,6 +12,9 @@ spring:
       enabled: true
       fail-fast: true
       retry:
-        initial-interval: 2000
-        max-attempts: 6
-        max-interval: 2000
+        # RetryTemplateBuilder requires max-interval > initial-interval (strict),
+        # otherwise exponentialBackoff() throws IllegalArgumentException at startup.
+        initial-interval: 1000     # first retry waits 1s
+        multiplier: 1.5            # each subsequent attempt waits 1.5× longer
+        max-interval: 10000        # capped at 10s between retries
+        max-attempts: 6            # up to 6 attempts before fail-fast aborts startup

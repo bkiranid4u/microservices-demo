@@ -27,6 +27,12 @@
             <groupId>com.kirandev</groupId>
             <artifactId>app-config-data</artifactId>
         </dependency>
+        <!-- Provides RetryConfig + RetryTemplate. Was previously pulled in transitively
+             via kafka-producer; made explicit so it cannot vanish if that dep changes. -->
+        <dependency>
+            <groupId>com.kirandev</groupId>
+            <artifactId>common-config</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.kirandev</groupId>
             <artifactId>kafka-admin</artifactId>

@@ -1,2 +1,3 @@
 com.kirandev.sharedlogginglib.LoggingAutoConfiguration
+com.kirandev.sharedlogginglib.ServletMdcAutoConfiguration
 com.kirandev.sharedlogginglib.KafkaLoggingAutoConfiguration

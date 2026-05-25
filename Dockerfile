@@ -66,6 +66,9 @@ COPY config-server-repository/ /home/appuser/devspace/microservices-demo/config-
 # Copy the built jar executable artifact from the builder stage
 COPY --from=builder /build/config-server/target/*.jar app.jar
 
+# Pre-create a writable log directory for the file-logging Spring profile (no-op otherwise)
+RUN mkdir -p /app/logs/archived
+
 # ✅ 4. Assign complete ownership of the home space and app folder to appuser
 RUN chown -R appuser:appgroup /home/appuser /app
 
@@ -89,7 +92,8 @@ FROM eclipse-temurin:25-jre-alpine AS twitter-to-kafka-service
 RUN addgroup -S appgroup && adduser -S -G appgroup appuser
 WORKDIR /app
 COPY --from=builder /build/twitter-to-kafka-service/target/*.jar app.jar
-RUN chown appuser:appgroup app.jar
+# Pre-create a writable log directory for the file-logging Spring profile (no-op otherwise)
+RUN mkdir -p /app/logs/archived && chown -R appuser:appgroup /app
 USER appuser
 EXPOSE 8080
 

@@ -9,10 +9,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 
 import java.util.Arrays;
 
 @SpringBootApplication(scanBasePackages = "com.kirandev")
+@ConfigurationPropertiesScan
 public class TwitterToKafkaServiceApplication implements CommandLineRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(TwitterToKafkaServiceApplication.class);

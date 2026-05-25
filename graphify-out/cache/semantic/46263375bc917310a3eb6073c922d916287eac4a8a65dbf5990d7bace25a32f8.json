@@ -1,0 +1,1 @@
+{"nodes": [{"id": "config_webclientconfig", "label": "WebClientConfig", "file_type": "code", "source_file": "kafka/kafka-admin/src/main/java/com/kirandev/kafka/admin/config/WebClientConfig.java", "source_location": "com.kirandev.kafka.admin.config.WebClientConfig", "source_url": null, "captured_at": null, "author": null, "contributor": null}], "edges": [], "hyperedges": []}

@@ -20,9 +20,12 @@ services:
     ports:
       - "8888:8888"
     environment:
-      SPRING_PROFILES_ACTIVE: docker
+      SPRING_PROFILES_ACTIVE: docker,file-logging
       LOGGING_LEVEL_ROOT: INFO
-      LOGGING_FILE_PATH: /var/log/app
+      # In-container writable path. Only used when SPRING_PROFILES_ACTIVE includes
+      # one of: staging, prod, file-logging. The docker profile alone keeps stdout-only.
+      # To enable file logs alongside stdout:  SPRING_PROFILES_ACTIVE=docker,file-logging
+      LOGGING_FILE_PATH: /app/logs
       LOGGING_LOGBACK_ROLLINGPOLICY_MAX_HISTORY: 14
       DEPLOYMENT_ENVIRONMENT: docker
     tmpfs:
@@ -50,11 +53,17 @@ services:
     ports:
       - "8080:8080"
     environment:
-      SPRING_PROFILES_ACTIVE: docker
+      SPRING_PROFILES_ACTIVE: docker,file-logging
       SPRING_CLOUD_CONFIG_URI: http://config-server:8888
-      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka-1:9092,kafka-2:9092,kafka-3:9092
+      # Bind to kafka-config.* — the custom @ConfigurationProperties prefix this app uses.
+      # SPRING_KAFKA_BOOTSTRAP_SERVERS was a no-op here because nothing reads spring.kafka.*.
+      KAFKA_CONFIG_BOOTSTRAP_SERVERS: kafka-1:9092,kafka-2:9092,kafka-3:9092
+      KAFKA_CONFIG_SCHEMA_REGISTRY_URL: http://schema-registry:8081
       LOGGING_LEVEL_ROOT: INFO
-      LOGGING_FILE_PATH: /var/log/app
+      # In-container writable path. Only used when SPRING_PROFILES_ACTIVE includes
+      # one of: staging, prod, file-logging. The docker profile alone keeps stdout-only.
+      # To enable file logs alongside stdout:  SPRING_PROFILES_ACTIVE=docker,file-logging
+      LOGGING_FILE_PATH: /app/logs
       LOGGING_LOGBACK_ROLLINGPOLICY_MAX_HISTORY: 14
       DEPLOYMENT_ENVIRONMENT: docker
 

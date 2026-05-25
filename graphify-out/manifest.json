@@ -1,13 +1,13 @@
 {
   "/Users/kiran4dev/Documents/devspace/microservices-demo/common-config/src/main/java/com/kirandev/common/config/RetryConfig.java": {
-    "mtime": 1778844768.3557308,
-    "ast_hash": "1429448e0bf4fcdb75172ad7fa6c3a62",
-    "semantic_hash": "1429448e0bf4fcdb75172ad7fa6c3a62"
+    "mtime": 1779449079.1519954,
+    "ast_hash": "f96b3b51e8c51e0e032af97723f68861",
+    "semantic_hash": "f96b3b51e8c51e0e032af97723f68861"
   },
   "/Users/kiran4dev/Documents/devspace/microservices-demo/app-config-data/src/main/java/com/kirandev/configdata/RetryConfigData.java": {
-    "mtime": 1778815422.9927967,
-    "ast_hash": "ef595f32a5c868b35d621713aa26a2cb",
-    "semantic_hash": "ef595f32a5c868b35d621713aa26a2cb"
+    "mtime": 1779451911.5268383,
+    "ast_hash": "f5c3086ae27ddae413f1b2b526c53efa",
+    "semantic_hash": "f5c3086ae27ddae413f1b2b526c53efa"
   },
   "/Users/kiran4dev/Documents/devspace/microservices-demo/app-config-data/src/main/java/com/kirandev/configdata/KafkaProducerConfigData.java": {
     "mtime": 1778829256.0881937,
@@ -25,9 +25,9 @@
     "semantic_hash": "c53b58903325969043501c3dd5e58768"
   },
   "/Users/kiran4dev/Documents/devspace/microservices-demo/.claude/settings.local.json": {
-    "mtime": 1779425884.4892504,
-    "ast_hash": "8a80554c91d9fca8acb82f023de02f11",
-    "semantic_hash": "8a80554c91d9fca8acb82f023de02f11"
+    "mtime": 1779687374.0521586,
+    "ast_hash": "304678d80ffc9d46fdc305e43667bc18",
+    "semantic_hash": "304678d80ffc9d46fdc305e43667bc18"
   },
   "/Users/kiran4dev/Documents/devspace/microservices-demo/kafka/kafka-admin/src/main/java/com/kirandev/kafka/admin/clients/KafkaAdminClient.java": {
     "mtime": 1778850092.4978356,
@@ -105,19 +105,19 @@
     "semantic_hash": "f8874975967ecb0e6dc63f85f8bd3274"
   },
   "/Users/kiran4dev/Documents/devspace/microservices-demo/shared-logging-lib/src/main/java/com/kirandev/sharedlogginglib/ServiceMdcInitializer.java": {
-    "mtime": 1779429651.2178776,
-    "ast_hash": "291243d87359fade45310184f50e71f1",
-    "semantic_hash": "291243d87359fade45310184f50e71f1"
+    "mtime": 1779441407.5461779,
+    "ast_hash": "ab81e781e1229a699b5ed5f5dc3cfb8e",
+    "semantic_hash": "ab81e781e1229a699b5ed5f5dc3cfb8e"
   },
   "/Users/kiran4dev/Documents/devspace/microservices-demo/shared-logging-lib/src/main/java/com/kirandev/sharedlogginglib/LoggingAutoConfiguration.java": {
-    "mtime": 1779429650.0342424,
-    "ast_hash": "82c945e8e5cfca14e8a415249f75d807",
-    "semantic_hash": "82c945e8e5cfca14e8a415249f75d807"
+    "mtime": 1779452175.561177,
+    "ast_hash": "81c47d67827b67ab68545b5ee2460d48",
+    "semantic_hash": "81c47d67827b67ab68545b5ee2460d48"
   },
   "/Users/kiran4dev/Documents/devspace/microservices-demo/shared-logging-lib/src/main/java/com/kirandev/sharedlogginglib/LoggingMdc.java": {
-    "mtime": 1779438948.572431,
-    "ast_hash": "79143548f799606c33c6f39b1e9a1627",
-    "semantic_hash": "79143548f799606c33c6f39b1e9a1627"
+    "mtime": 1779441405.942696,
+    "ast_hash": "94f3b5c775eeb2bd5c080c3d4d144518",
+    "semantic_hash": "94f3b5c775eeb2bd5c080c3d4d144518"
   },
   "/Users/kiran4dev/Documents/devspace/microservices-demo/shared-logging-lib/src/main/java/com/kirandev/sharedlogginglib/kafka/KafkaMdcRecordInterceptor.java": {
     "mtime": 1779438996.1373296,
@@ -125,9 +125,9 @@
     "semantic_hash": "eab02de55eb891b3795a82b221305f94"
   },
   "/Users/kiran4dev/Documents/devspace/microservices-demo/shared-logging-lib/src/main/java/com/kirandev/sharedlogginglib/kafka/KafkaMdcProducerInterceptor.java": {
-    "mtime": 1779438972.3141525,
-    "ast_hash": "8f06595544290725960a10e80b698181",
-    "semantic_hash": "8f06595544290725960a10e80b698181"
+    "mtime": 1779441418.6854696,
+    "ast_hash": "eca7dc8583f03e09722a19e674f90e21",
+    "semantic_hash": "eca7dc8583f03e09722a19e674f90e21"
   },
   "/Users/kiran4dev/Documents/devspace/microservices-demo/config-server/src/test/java/com/kirandev/configserver/ConfigServerApplicationTests.java": {
     "mtime": 1779206447.649218,
@@ -145,9 +145,9 @@
     "semantic_hash": "ab9a389977c7f03dd46199cde3fc2e8f"
   },
   "/Users/kiran4dev/Documents/devspace/microservices-demo/twitter-to-kafka-service/src/main/java/com/kirandev/TwitterToKafkaServiceApplication.java": {
-    "mtime": 1778841669.6929135,
-    "ast_hash": "e695f44937cb14b21993c95083cefe65",
-    "semantic_hash": "e695f44937cb14b21993c95083cefe65"
+    "mtime": 1779451911.5175896,
+    "ast_hash": "88b2ae62a6459a77c364580bce87d436",
+    "semantic_hash": "88b2ae62a6459a77c364580bce87d436"
   },
   "/Users/kiran4dev/Documents/devspace/microservices-demo/twitter-to-kafka-service/src/main/java/com/kirandev/init/StreamInitializer.java": {
     "mtime": 1778840078.5702004,
@@ -198,5 +198,100 @@
     "mtime": 1779439137.1481318,
     "ast_hash": "87f0d903477984d0587a02f8fe185263",
     "semantic_hash": "87f0d903477984d0587a02f8fe185263"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/shared-logging-lib/src/main/java/com/kirandev/sharedlogginglib/ServletMdcAutoConfiguration.java": {
+    "mtime": 1779452168.1036792,
+    "ast_hash": "85e47bf16e56e9e40307cf9c1ef7f93e",
+    "semantic_hash": "85e47bf16e56e9e40307cf9c1ef7f93e"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/docker-compose.yaml": {
+    "mtime": 1779453528.6752062,
+    "ast_hash": "26ab78c3136e005eb88565ba4ebe152d",
+    "semantic_hash": "26ab78c3136e005eb88565ba4ebe152d"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/microservices-docker-setup.md": {
+    "mtime": 1779371291.6259112,
+    "ast_hash": "d4ec4fc4e85f12c30fd0eb413f89bbfe",
+    "semantic_hash": "d4ec4fc4e85f12c30fd0eb413f89bbfe"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/Dockerfile-local.yml": {
+    "mtime": 1779342034.8190043,
+    "ast_hash": "03a3475f055b5489003d0fec61015888",
+    "semantic_hash": "03a3475f055b5489003d0fec61015888"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/docker-compose.prod.yml": {
+    "mtime": 1779338520.635167,
+    "ast_hash": "c91ba39703d85bb90d3b172a7c1afb8f",
+    "semantic_hash": "c91ba39703d85bb90d3b172a7c1afb8f"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/CLAUDE.md": {
+    "mtime": 1779439137.1478665,
+    "ast_hash": "82efb97a359f5c7290bf2513d14686be",
+    "semantic_hash": "82efb97a359f5c7290bf2513d14686be"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/docs/logging.md": {
+    "mtime": 1779429643.9071684,
+    "ast_hash": "15e55e5bb72073cd8156b046708bd8a9",
+    "semantic_hash": "15e55e5bb72073cd8156b046708bd8a9"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/docs/logging-and-config-journey.md": {
+    "mtime": 1779454685.1120317,
+    "ast_hash": "311a9c9f0ad27ba50f479fe828f1aec7",
+    "semantic_hash": "311a9c9f0ad27ba50f479fe828f1aec7"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/docker-compose/common.yml": {
+    "mtime": 1778808099.675038,
+    "ast_hash": "b62acb9a182352cfba54ff31e30317b4",
+    "semantic_hash": "b62acb9a182352cfba54ff31e30317b4"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/docker-compose/Kafka_Cluster_with_kraft.yml": {
+    "mtime": 1779203462.8283765,
+    "ast_hash": "8a5fab0452f0b9ebdcc943d705c9996e",
+    "semantic_hash": "8a5fab0452f0b9ebdcc943d705c9996e"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/docker-compose/kafka_cluster.yml": {
+    "mtime": 1779203441.8697047,
+    "ast_hash": "bf4a28db34e472ad52ac1171661eaaff",
+    "semantic_hash": "bf4a28db34e472ad52ac1171661eaaff"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/shared-logging-lib/README.md": {
+    "mtime": 1779430230.3221505,
+    "ast_hash": "f5caaf4ee62e42d130d89dcf8be565b4",
+    "semantic_hash": "f5caaf4ee62e42d130d89dcf8be565b4"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/shared-logging-lib/src/main/resources/application-logging.yaml": {
+    "mtime": 1779441422.889684,
+    "ast_hash": "fbc33d24c5e73c35c02ce09795b9ad41",
+    "semantic_hash": "fbc33d24c5e73c35c02ce09795b9ad41"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/config-server/src/main/resources/application.yaml": {
+    "mtime": 1779429653.2648757,
+    "ast_hash": "eb6ef9d6fc7fda5531b723c607fd9467",
+    "semantic_hash": "eb6ef9d6fc7fda5531b723c607fd9467"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/twitter-to-kafka-service/src/main/resources/application.yaml": {
+    "mtime": 1779448424.158472,
+    "ast_hash": "30c3a5ecf374dd3a44ac2a765a70ec0e",
+    "semantic_hash": "30c3a5ecf374dd3a44ac2a765a70ec0e"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/config-server-repository/config-server.yml": {
+    "mtime": 1779198102.0473297,
+    "ast_hash": "f560d243bae79631a82f91f12962aef4",
+    "semantic_hash": "f560d243bae79631a82f91f12962aef4"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/config-server-repository/logging-common.yml": {
+    "mtime": 1779439190.9446507,
+    "ast_hash": "041d6f358d4051c301cd636af8a10ff2",
+    "semantic_hash": "041d6f358d4051c301cd636af8a10ff2"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/config-server-repository/application.yml": {
+    "mtime": 1779441428.99307,
+    "ast_hash": "b8c7ae75bb192f0a72dc97159a0a2a30",
+    "semantic_hash": "b8c7ae75bb192f0a72dc97159a0a2a30"
+  },
+  "/Users/kiran4dev/Documents/devspace/microservices-demo/config-server-repository/twitter-to-kafka-service.yml": {
+    "mtime": 1779452969.4018342,
+    "ast_hash": "6f6dc8c2aedd6e4344fbb413a351df81",
+    "semantic_hash": "6f6dc8c2aedd6e4344fbb413a351df81"
   }
 }
