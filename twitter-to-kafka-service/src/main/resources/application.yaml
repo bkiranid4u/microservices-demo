@@ -3,18 +3,11 @@ spring:
     name: twitter-to-kafka-service
   config:
     import:
-      - "optional:configserver:"
+      # 1. Load local classpath logging configuration
       - "optional:classpath:application-logging.yaml"
-  cloud:
-    config:
-      uri: http://localhost:8888
-      name: twitter-to-kafka-service
-      enabled: true
-      fail-fast: true
-      retry:
-        # RetryTemplateBuilder requires max-interval > initial-interval (strict),
-        # otherwise exponentialBackoff() throws IllegalArgumentException at startup.
-        initial-interval: 1000     # first retry waits 1s
-        multiplier: 1.5            # each subsequent attempt waits 1.5× longer
-        max-interval: 10000        # capped at 10s between retries
-        max-attempts: 6            # up to 6 attempts before fail-fast aborts startup
+
+      # 2. Load the shared generic configuration file (config-client)
+      - "configserver:http://localhost:8888/config-client"
+
+      # 3. Load the application-specific configuration file (twitter-to-kafka-service)
+      - "configserver:http://localhost:8888/twitter-to-kafka-service"

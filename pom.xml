@@ -19,8 +19,9 @@
         <module>app-config-data</module>
         <module>common-config</module>
         <module>config-server</module>
-        <module>twitter-to-kafka-service</module>
         <module>kafka</module>
+        <module>twitter-to-kafka-service</module>
+        <module>kafka-to-elastic</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -83,6 +84,12 @@
             <dependency>
                 <groupId>com.kirandev</groupId>
                 <artifactId>kafka-producer</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.kirandev</groupId>
+                <artifactId>kafka-consumer</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!---->
