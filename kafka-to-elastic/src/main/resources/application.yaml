@@ -7,7 +7,7 @@ spring:
       - "optional:classpath:application-logging.yaml"
 
       # 2. Load the shared generic configuration file (config-client)
-      - "configserver:http://localhost:8888/config-client"
+#      - "configserver:http://localhost:8888/config-client"
 
-      # 3. Load the application-specific configuration file (twitter-to-kafka-service)
-      - "configserver:http://localhost:8888/kafka-to-elastic"
+      # 3. Load the application-specific configuration file (kafka-to-elastic)
+      - configserver:${SPRING_CLOUD_CONFIG_URI:http://config-server:8888}

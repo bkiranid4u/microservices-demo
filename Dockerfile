@@ -18,10 +18,12 @@ COPY app-config-data/pom.xml            app-config-data/
 COPY common-config/pom.xml              common-config/
 COPY config-server/pom.xml              config-server/
 COPY twitter-to-kafka-service/pom.xml   twitter-to-kafka-service/
+COPY kafka-to-elastic/pom.xml           kafka-to-elastic/
 COPY kafka/pom.xml                      kafka/
 COPY kafka/kafka-model/pom.xml          kafka/kafka-model/
 COPY kafka/kafka-admin/pom.xml          kafka/kafka-admin/
 COPY kafka/kafka-producer/pom.xml       kafka/kafka-producer/
+COPY kafka/kafka-consumer/pom.xml       kafka/kafka-consumer/
 
 # Resolve dependencies — reuses mounted .m2 cache, no re-download
 RUN --mount=type=cache,target=/root/.m2 \
@@ -33,9 +35,11 @@ COPY app-config-data/src            app-config-data/src
 COPY common-config/src              common-config/src
 COPY config-server/src              config-server/src
 COPY twitter-to-kafka-service/src   twitter-to-kafka-service/src
+COPY kafka-to-elastic/src           kafka-to-elastic/src
 COPY kafka/kafka-model/src          kafka/kafka-model/src
 COPY kafka/kafka-admin/src          kafka/kafka-admin/src
 COPY kafka/kafka-producer/src       kafka/kafka-producer/src
+COPY kafka/kafka-consumer/src       kafka/kafka-consumer/src
 
 # Build entire reactor — .m2 cache reused from mount
 RUN --mount=type=cache,target=/root/.m2 \
@@ -92,6 +96,24 @@ FROM eclipse-temurin:25-jre-alpine AS twitter-to-kafka-service
 RUN addgroup -S appgroup && adduser -S -G appgroup appuser
 WORKDIR /app
 COPY --from=builder /build/twitter-to-kafka-service/target/*.jar app.jar
+# Pre-create a writable log directory for the file-logging Spring profile (no-op otherwise)
+RUN mkdir -p /app/logs/archived && chown -R appuser:appgroup /app
+USER appuser
+EXPOSE 8080
+
+ENTRYPOINT ["java", \
+    "-XX:+UseContainerSupport", \
+    "-XX:MaxRAMPercentage=75.0", \
+    "-Djava.security.egd=file:/dev/./urandom", \
+    "-jar", "app.jar"]
+# =============================================================================
+# Stage 4: kafka-to-elastic runtime
+# =============================================================================
+FROM eclipse-temurin:25-jre-alpine AS kafka-to-elastic
+
+RUN addgroup -S appgroup && adduser -S -G appgroup appuser
+WORKDIR /app
+COPY --from=builder /build/kafka-to-elastic/target/*.jar app.jar
 # Pre-create a writable log directory for the file-logging Spring profile (no-op otherwise)
 RUN mkdir -p /app/logs/archived && chown -R appuser:appgroup /app
 USER appuser

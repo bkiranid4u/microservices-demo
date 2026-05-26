@@ -19,7 +19,9 @@ services:
     image: com.kirandev/config-server:0.0.1-SNAPSHOT
     ports:
       - "8888:8888"
+      - "5003:5003"
     environment:
+      JAVA_OPTS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5004 -Xms128m -Xmx256m
       SPRING_PROFILES_ACTIVE: docker,file-logging
       LOGGING_LEVEL_ROOT: INFO
       # In-container writable path. Only used when SPRING_PROFILES_ACTIVE includes
@@ -52,7 +54,52 @@ services:
     image: com.kirandev/twitter.to.kafka.service:0.0.1-SNAPSHOT
     ports:
       - "8080:8080"
+      - "5004:5004"
     environment:
+      JAVA_OPTS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5004 -Xms128m -Xmx256m
+      SPRING_PROFILES_ACTIVE: docker,file-logging
+      SPRING_CLOUD_CONFIG_URI: http://config-server:8888
+      # Bind to kafka-config.* — the custom @ConfigurationProperties prefix this app uses.
+      # SPRING_KAFKA_BOOTSTRAP_SERVERS was a no-op here because nothing reads spring.kafka.*.
+      KAFKA_CONFIG_BOOTSTRAP_SERVERS: kafka-1:9092,kafka-2:9092,kafka-3:9092
+      KAFKA_CONFIG_SCHEMA_REGISTRY_URL: http://schema-registry:8081
+      LOGGING_LEVEL_ROOT: INFO
+      # In-container writable path. Only used when SPRING_PROFILES_ACTIVE includes
+      # one of: staging, prod, file-logging. The docker profile alone keeps stdout-only.
+      # To enable file logs alongside stdout:  SPRING_PROFILES_ACTIVE=docker,file-logging
+      LOGGING_FILE_PATH: /app/logs
+      LOGGING_LOGBACK_ROLLINGPOLICY_MAX_HISTORY: 14
+      DEPLOYMENT_ENVIRONMENT: docker
+
+    depends_on:
+      config-server:
+        condition: service_healthy
+      kafka-1:
+        condition: service_healthy
+      kafka-2:
+        condition: service_healthy
+      kafka-3:
+        condition: service_healthy
+      schema-registry:
+        condition: service_healthy
+    networks:
+      - kafka-net
+  # ---------------------------------------------------------------------------
+  # Kafka to Elastic
+  # ---------------------------------------------------------------------------
+  kafka-to-elastic:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: kafka-to-elastic
+      cache_from:
+        - com.kirandev/kafka-to-elastic:0.0.1-SNAPSHOT
+    image: com.kirandev/kafka-to-elastic:0.0.1-SNAPSHOT
+    ports:
+      - "8181:8080"
+      - "5005:5005"
+    environment:
+      JAVA_OPTS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Xms128m -Xmx256m
       SPRING_PROFILES_ACTIVE: docker,file-logging
       SPRING_CLOUD_CONFIG_URI: http://config-server:8888
       # Bind to kafka-config.* — the custom @ConfigurationProperties prefix this app uses.
@@ -81,9 +128,6 @@ services:
     networks:
       - kafka-net
 
-  # ---------------------------------------------------------------------------
-  # Kafka Cluster (KRaft mode - no Zookeeper)
-  # ---------------------------------------------------------------------------
   # ---------------------------------------------------------------------------
   # Kafka Cluster (KRaft mode - no Zookeeper)
   # ---------------------------------------------------------------------------
