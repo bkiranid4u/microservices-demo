@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: kafka-to-elastic
+  config:
+    import:
+      # 1. Load local classpath logging configuration
+      - "optional:classpath:application-logging.yaml"
+
+      # 2. Load the shared generic configuration file (config-client)
+      - "configserver:http://localhost:8888/config-client"
+
+      # 3. Load the application-specific configuration file (twitter-to-kafka-service)
+      - "configserver:http://localhost:8888/kafka-to-elastic"
